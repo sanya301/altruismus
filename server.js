@@ -18,6 +18,34 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+// set the contact page route
+app.get('/contact.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('contact');
+});
+
+// set the index page route
+app.get('/index.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('index');
+});
+
+// set the elements page route
+app.get('/elements.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('elements');
+});
+
+// set the generic page route
+app.get('/generic.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('generic');
+});
+
 app.listen(port, function() {
 	console.log('Our app is running on http://localhost:' + port);
 });
