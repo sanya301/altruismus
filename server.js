@@ -46,6 +46,21 @@ app.get('/generic.ejs', function(req, res) {
 	res.render('generic');
 });
 
+
+// set the generic page route
+app.get('/vsignup.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('vsignup');
+});
+
+// set the generic page route
+app.get('/osignup.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('osignup');
+});
+
 app.listen(port, function() {
 	console.log('Our app is running on http://localhost:' + port);
 });
