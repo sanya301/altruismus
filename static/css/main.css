@@ -1,5 +1,6 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
+@import url ("https://fonts.googleapis.com/css?family=Fjalla+One");
 
 /*
 	Alpha by HTML5 UP
@@ -3034,10 +3035,9 @@
 	#banner {
 		background-attachment: scroll,							fixed;
 		background-color: #666;
-		background-image: url("images/banner.jpg");
+		background-image: url("images/orngbanner.jpg");
 		background-position: top left,						center center;
-		background-repeat: repeat,							no-repeat;
-		background-size: auto,							cover;
+		background-size: 							cover;
 		color: #fff;
 		padding: 12em 0 20em 0;
 		text-align: center;
@@ -3052,15 +3052,28 @@
 		}
 
 		#banner h2 {
-			font-size: 3.5em;
+			font-family: verdana, sans-serif, bold;
+			font-size: 4em;
 			line-height: 1em;
-			margin: 0 0 0.5em 0;
+			margin: 0 0 0.1em 0;
 			padding: 0;
+
 		}
 
 		#banner p {
-			font-size: 1.25em;
-			margin-bottom: 1.75em;
+			font-family: helvetica, sans-serif;
+			font-size: 17.5px;
+			margin-bottom: 3em;
+			margin:0.1;
+			font-variant: small-caps;
+
+		}
+		
+		#banner p1 {
+			font-family: verdana, sans-serif, bold;
+			font-size: 2em;
+			margin-bottom: 1em;
+			margin:0.5;
 		}
 
 		#banner input[type="submit"],
