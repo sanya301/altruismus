@@ -97,3 +97,21 @@ app.use(express.static(__dirname + '/static'));
 // 	res.render('osignup');
 // });
 
+// set the login page route
+app.get('/login.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('login');
+});
+
+// set the userview page route
+app.get('/userview.ejs', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('userview');
+});
+
+app.listen(port, function() {
+	console.log('Our app is running on http://localhost:' + port);
+});
+>>>>>>> f56830ea0bd4c4a7a502761d76c7fe62fe981b11
