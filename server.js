@@ -11,7 +11,6 @@ var flash = require('connect-flash');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs = require('express3-handlebars');
 var session = require('express-session');
 
 var configDB = require('./config/database.js');
