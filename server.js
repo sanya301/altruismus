@@ -50,54 +50,47 @@ app.set('view engine', 'ejs');
 
 
 // // set the home page route
-// app.get('/', function(req, res) {
+app.get('/', function(req, res) {
 
 // // 	// ejs render automatically looks in the views folder
-// // 	res.render('index');
-// // });
+	res.render('index');
+ });
 
 // // set the contact page route
-// app.get('/contact.ejs', function(req, res) {
+app.get('/contact.ejs', function(req, res) {
 
-// 	// ejs render automatically looks in the views folder
-// 	res.render('contact');
-// });
+    res.render('contact');
+});
 
 // // set the index page route
-// app.get('/index.ejs', function(req, res) {
-
-// 	// ejs render automatically looks in the views folder
-// 	res.render('index');
-// });
+app.get('/index.ejs', function(req, res) {
+	res.render('index');
+});
 
 // // set the elements page route
-// app.get('/elements.ejs', function(req, res) {
+app.get('/elements.ejs', function(req, res) {
 
-// 	// ejs render automatically looks in the views folder
-// 	res.render('elements');
-// });
+ 	res.render('elements');
+ });
 
 // // set the generic page route
-// app.get('/generic.ejs', function(req, res) {
+app.get('/generic.ejs', function(req, res) {
 
-// 	// ejs render automatically looks in the views folder
-// 	res.render('generic');
-// });
+ 	res.render('generic');
+ });
 
 
 // // set the generic page route
-// app.get('/vsignup.ejs', function(req, res) {
+app.get('/vsignup.ejs', function(req, res) {
 
-// 	// ejs render automatically looks in the views folder
-// 	res.render('vsignup');
-// });
+ 	res.render('vsignup');
+ });
 
 // // set the generic page route
-// app.get('/osignup.ejs', function(req, res) {
+app.get('/osignup.ejs', function(req, res) {
 
-// 	// ejs render automatically looks in the views folder
-// 	res.render('osignup');
-// });
+ 	res.render('osignup');
+ });
 
 // set the login page route
 app.get('/login.ejs', function(req, res) {
