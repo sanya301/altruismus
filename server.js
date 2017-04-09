@@ -112,7 +112,3 @@ app.get('/userview.ejs', function(req, res) {
 	// ejs render automatically looks in the views folder
 	res.render('userview');
 });
-
-app.listen(port, function() {
-	console.log('Our app is running on http://localhost:' + port);
-});
