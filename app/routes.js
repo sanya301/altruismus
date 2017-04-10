@@ -27,6 +27,11 @@ app.get('/signup', function(req, res) {
         res.render('osignup.ejs', { message: req.flash('signupMessage') });
     });
     
+// ABOUT PAGE 
+    app.get('/about', function(req, res) {
+        res.render('index.ejs'); // load the about.ejs file
+    });
+    
 // PROFILE
  app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
