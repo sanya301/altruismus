@@ -79,61 +79,61 @@ app.get('/', function(req, res) {
  });
 
 // // set the contact page route
-app.get('/contact.ejs', function(req, res) {
+app.get('/contact', function(req, res) {
 
     res.render('contact');
 });
 
 // // set the index page route
-app.get('/index.ejs', function(req, res) {
+app.get('/index', function(req, res) {
 	res.render('index');
 });
 
 // // set the elements page route
-app.get('/elements.ejs', function(req, res) {
+app.get('/elements', function(req, res) {
 
  	res.render('elements');
  });
 
 // // set the generic page route
-app.get('/generic.ejs', function(req, res) {
+app.get('/generic', function(req, res) {
 
  	res.render('generic');
  });
 
 
 // // set the generic page route
-app.get('/vsignup.ejs', function(req, res) {
+app.get('/vsignup', function(req, res) {
 
  	res.render('vsignup');
  });
 
 // // set the generic page route
-app.get('/osignup.ejs', function(req, res) {
+app.get('/osignup', function(req, res) {
 
  	res.render('osignup');
  });
 
 // set the login page route
-app.get('/login.ejs', function(req, res) {
+app.get('/login', function(req, res) {
 
 	// ejs render automatically looks in the views folder
 	res.render('login');
 });
 
 // set the userview page route
-app.get('/oview.ejs', function(req, res) {
+app.get('/oview', function(req, res) {
 
 	// ejs render automatically looks in the views folder
 	res.render('oview');
 });
 
 // ABOUT PAGE 
-app.get('/about.ejs', function(req, res) {
-        res.render('about'); // load the about.ejs file
+app.get('/about', function(req, res) {
+        res.render('about'); // load the about file
 });
 
-app.post("/vsignup.ejs", function(req, res) {
+app.post("/vsignup", function(req, res) {
     
     
     var mongoOp     =   require("./model/vusers");
@@ -179,7 +179,7 @@ app.post("/vsignup.ejs", function(req, res) {
     });
 });
     
-app.post("/osignup.ejs", function(req, res) {
+app.post("/osignup", function(req, res) {
     
         
     var mongoOp     =   require("./model/ousers");
