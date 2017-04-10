@@ -134,35 +134,7 @@ app.get('/userview.ejs', function(req, res) {
 	res.render('userview');
 });
 
-/*app.post ('/vsignup.ejs', function (req, res) {
-  
-//  console.log(req.body);
-  
-   db.collection('altruismus').save( req.body, function (err, result) {
-    if (err) return console.log(err);
-
-    console.log('saved to database');
-    res.redirect('/');
-   });
-}); */
-
-
 app.post("/vsignup.ejs", function(req, res) {
-/*  var newV = req.body;
-  newV.createDate = new Date();
-
-  if (!(req.body.firstname || req.body.lastname)) {
-    handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-  }
-
-  db.collection(VUSERS_COLLECTION).insertOne(newV, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new user.");
-    } else {
-    //  res.status(201).json(doc.ops[0]);
-      console.log('saved to database');
-    }
-  }); */
   
     var response = {};
     // fetch email and password from REST request.
@@ -202,5 +174,11 @@ app.post("/vsignup.ejs", function(req, res) {
 
     });
 });
+
+// ABOUT PAGE 
+ app.get('/about', function(req, res) {
+        res.render('about.ejs'); // load the about.ejs file
+});
+    
   
       
