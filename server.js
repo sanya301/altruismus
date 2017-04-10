@@ -134,6 +134,11 @@ app.get('/userview.ejs', function(req, res) {
 	res.render('userview');
 });
 
+// ABOUT PAGE 
+app.get('/about.ejs', function(req, res) {
+        res.render('about'); // load the about.ejs file
+});
+
 app.post("/vsignup.ejs", function(req, res) {
   
     var response = {};
@@ -173,11 +178,6 @@ app.post("/vsignup.ejs", function(req, res) {
       res.redirect('/');
 
     });
-});
-
-// ABOUT PAGE 
- app.get('/about', function(req, res) {
-        res.render('about.ejs'); // load the about.ejs file
 });
     
   
