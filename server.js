@@ -15,12 +15,6 @@ var session = require('express-session');
 
 var MONGODB_URI = require('./config/database.js');
 
-var mongoOp     =   require("./model/mongo");
-
-var db = new mongoOp();
-var VUSERS_COLLECTION = "users";
-
-
 // Configuration ===========================================================================================================
  mongoose.connect(MONGODB_URI.url, function (err, database) {
   if (err) {
@@ -128,10 +122,10 @@ app.get('/login.ejs', function(req, res) {
 });
 
 // set the userview page route
-app.get('/userview.ejs', function(req, res) {
+app.get('/oview.ejs', function(req, res) {
 
 	// ejs render automatically looks in the views folder
-	res.render('userview');
+	res.render('oview');
 });
 
 // ABOUT PAGE 
@@ -140,6 +134,11 @@ app.get('/about.ejs', function(req, res) {
 });
 
 app.post("/vsignup.ejs", function(req, res) {
+    
+    
+    var mongoOp     =   require("./model/vusers");
+
+    var db = new mongoOp();
   
     var response = {};
     // fetch email and password from REST request.
@@ -180,5 +179,47 @@ app.post("/vsignup.ejs", function(req, res) {
     });
 });
     
+app.post("/osignup.ejs", function(req, res) {
+    
+        
+    var mongoOp     =   require("./model/ousers");
+
+    var db = new mongoOp();
   
+    var response = {};
+    // fetch email and password from REST request.
+    // Add strict validation when you use this in Production.
+    db.email = req.body.email; 
+    db.name = req.body.name;
+    // Hash the password using SHA1 algorithm.
+    db.password =  require('crypto')
+                          .createHash('sha1')
+                          .update(req.body.password)
+                          .digest('base64');
+    db.confirmpassword =  require('crypto')
+                          .createHash('sha1')
+                          .update(req.body.confirmpassword)
+                          .digest('base64');
+    db.phone_no = req.body.tel;
+
+    db.save(function(err){
+    // save() will run insert() command of MongoDB.
+    // it will add new data in collection.
+      if(err) {
+            response = {"error" : true,"message" : "Error adding data"};
+      } 
       
+      else if (db.password != db.confirmpassword ) {
+            response = {"error" : true,"message" : "Passwords don't match"};
+      }
+      
+      else {
+            response = {"error" : false,"message" : "Data added"};
+      }
+      res.json(response);
+      
+      res.redirect('/');
+
+    });
+});
+    

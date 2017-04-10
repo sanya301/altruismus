@@ -22,11 +22,7 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="index.ejs">Home</a></li>
-							
-							<li><a href="generic.ejs">Generic</a></li>
 							<li><a href="contact.ejs">Contact</a></li>
-							<li><a href="elements.ejs">Elements</a></li>
-								
 							<li><a href="login.ejs" class="button">Login</a></li>
 						</ul>
 					</nav>
@@ -37,25 +33,6 @@
 					<header>
 						<h2>Sign Up as a Volunteer</h2>
 					</header>
-					
-<!--					<form>
-						<div class="row uniform 50%">
-							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email Address" />
-							</div>
-							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email Address" />
-							</div>
-							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email Address" />
-							</div>
-							
-						</div>
-						<div class="4u 12u(mobilep)">
-								<input type="submit" value="Sign Up" class="fit" />
-						</div>
-					</form>
--->
 					
 					<div class="box">
 						<form method="post" action="/vsignup.ejs">
@@ -73,16 +50,16 @@
 									placeholder="Last name" />
 								</div>
 							</div>
-							
+	
 							<div class="row uniform 50%">
 								<div class="12u">
-									DOB:  <input type="date" name="dob" id="dob" value="" placeholder="Date Of Birth" />
+									<input type="email" name="email" id="email" value="" placeholder="Email address" />
 								</div>
 							</div>
 							
 							<div class="row uniform 50%">
 								<div class="12u">
-									<input type="email" name="email" id="email" value="" placeholder="Email address" />
+									DOB:  <input type="date" name="dob" id="dob" value="" placeholder="Date Of Birth" />
 								</div>
 							</div>
 							
@@ -98,8 +75,6 @@
 									placeholder="Confirm password" />
 								</div>
 							</div>
-							
-							
 							
 							<div class="row uniform">
 								<div class="12u">
