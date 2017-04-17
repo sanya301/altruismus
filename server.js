@@ -102,36 +102,13 @@ app.get('/login', function(req, res) {
 	res.render('login');
 });
 
-app.post('/login', function(req, res) {
-    
-    var logintype = req.body.logintype;
-    console.log (logintype);
-    
-    if (logintype == 0) {
-      console.log ('starting vol session');
-      passport.authenticate('local-login', { 
-
-      successRedirect: '/vview',
-      failureRedirect: '/login',
-      failureFlash: true,
-    });
-    }
-    
-    else if (logintype == 1) {
-            console.log ('starting org session');
-
-      passport.authenticate('local-login', { 
+app.post('/login', passport.authenticate('local-login', { 
 
       successRedirect: '/oview',
       failureRedirect: '/login',
       failureFlash: true,
-    });
-    }
-    
-    else 
-      res.redirect('/');
 
-});
+}));
 
 
 // set the org view page route
@@ -195,63 +172,3 @@ app.post("/osignup", passport.authenticate('local-signup', {
   failureRedirect: '/osignup',
   failureFlash: true
 }));
-
-app.get('/oview', isLoggedIn, function(req, res) {  
-  res.render('oview.ejs', { user: req.user });
-});
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-
- // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}
-
-/*
-// Middleware that loads a users tasks if they are logged in.
-function loadUserTasks(req, res, next) {
-  // Removed
-  next();
-}
-
-// Return the home page after loading tasks for users, or not.
-app.get('/', loadUserTasks, (req, res) => {
-  res.render('index');
-});
-
-// Handle submitted form for new users
-app.post('/user/register', (req, res) => {
-  res.send('woot');
-});
-
-app.post('/user/login', (req, res) => {
-  res.send('woot');
-});
-
-// Log a user out
-app.get('/user/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
-
-//  All the controllers and routes below this require
-//  the user to be logged in.
-app.use(isLoggedIn);
-
-// Handle submission of new task form
-app.post('/tasks/:id/:action(complete|incomplete)', (req, res) => {
-  res.send('woot');
-});
-
-app.post('/tasks/:id/delete', (req, res) => {
-  res.send('woot');
-});
-
-// Handle submission of new task form
-app.post('/task/create', (req, res) => {
-  res.send('woot');
-}); */
