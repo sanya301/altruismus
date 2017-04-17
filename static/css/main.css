@@ -3040,11 +3040,7 @@
 	#banner {
 		background-attachment: scroll,							fixed;
 		background-color: #666;
-<<<<<<< HEAD
-		background-image: url("images/bg2.jpeg");
-=======
-		background-image: url("images/StockSnap_2M6IIT3D6N.png"), url("images/StockSnap_2M6IIT3D6N.jpg");
->>>>>>> login
+		background-image: url("images/bg2.png"), url("images/bg2.jpeg");
 		background-position: top left,						center center;
 		background-size: 							cover;
 		color: #fff;
