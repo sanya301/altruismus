@@ -101,6 +101,11 @@ app.get('/generic', function(req, res) {
  	res.render('generic');
  });
 
+// // set the generic page route
+app.get('/signup', function(req, res) {
+
+ 	res.render('signup');
+ });
 
 // // set the generic page route
 app.get('/vsignup', function(req, res) {
