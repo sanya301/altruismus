@@ -6,9 +6,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "bcrypt-nodejs": "latest",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.0.0",
-    "connect-flash": "~0.1.1",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.0.0",
     "ejs": "^1.0.0",
     "express": "^4.9.8",
@@ -20,6 +20,6 @@
     "nodemon": "^1.11.0",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
-    "passport-local": "~0.1.6"
+    "passport-local": "^0.1.6"
   }
 }
