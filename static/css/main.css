@@ -1,6 +1,6 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
-@import url ("https://fonts.googleapis.com/css?family=Fjalla+One");
+/* @import url ("https://fonts.googleapis.com/css?family=Fjalla+One"); */
 
 /*
 	Alpha by HTML5 UP
@@ -2940,6 +2940,11 @@
 			color: rgba(255, 255, 255, 0.75);
 			position: absolute;
 		}
+/*			#header.alt h1{
+				text-align: left;
+				font-size:2.5em;
+				font-weight: 300;
+			} */
 
 			#header.alt nav > ul > li a:not(.button).icon:before {
 				color: rgba(255, 255, 255, 0.75);
@@ -3035,7 +3040,11 @@
 	#banner {
 		background-attachment: scroll,							fixed;
 		background-color: #666;
+<<<<<<< HEAD
 		background-image: url("images/bg2.jpeg");
+=======
+		background-image: url("images/StockSnap_2M6IIT3D6N.png"), url("images/StockSnap_2M6IIT3D6N.jpg");
+>>>>>>> login
 		background-position: top left,						center center;
 		background-size: 							cover;
 		color: #fff;
@@ -3052,29 +3061,23 @@
 		}
 
 		#banner h2 {
-			font-family: verdana, sans-serif, bold;
-			font-size: 4em;
+			font-size: 3.5em;
 			line-height: 1em;
-			margin: 0 0 0.1em 0;
+			margin: 0 0 0.5em 0;
 			padding: 0;
-
 		}
 
 		#banner p {
-			font-family: helvetica, sans-serif;
-			font-size: 17.5px;
-			margin-bottom: 3em;
-			margin:0.1;
-			font-variant: small-caps;
-
+			font-size: 1.25em;
+			margin-bottom: 1.75em;
 		}
 		
-		#banner p1 {
+/*		#banner p1 {
 			font-family: verdana, sans-serif, bold;
 			font-size: 2em;
 			margin-bottom: 1em;
 			margin:0.5;
-		}
+		} */
 
 		#banner input[type="submit"],
 		#banner input[type="reset"],
