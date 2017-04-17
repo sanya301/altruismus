@@ -128,6 +128,13 @@ app.get('/oview', function(req, res) {
 	res.render('oview');
 });
 
+// set the userview page route
+app.get('/addevent', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('addevent');
+});
+
 // ABOUT PAGE 
 app.get('/about', function(req, res) {
         res.render('about'); // load the about file
