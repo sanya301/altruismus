@@ -108,15 +108,6 @@ app.get('/login', function(req, res) {
 	res.render('login');
 });
 
-app.post('/login', passport.authenticate('local-login', { 
-
-      successRedirect: '/oview',
-      failureRedirect: '/login',
-      failureFlash: true,
-
-}));
-
-
 // set the org view page route
 app.get('/oview', function(req, res) {
 
@@ -134,6 +125,20 @@ app.get('/addevent', function(req, res) {
 app.get('/about', function(req, res) {
     res.render('about'); // load the about file
 });
+
+app.post("/osignup", passport.authenticate('local-signup', {  
+  successRedirect: '/oview',
+  failureRedirect: '/osignup',
+  failureFlash: true
+}));
+
+app.post('/login', passport.authenticate('local-login', { 
+
+      successRedirect: '/oview',
+      failureRedirect: '/login',
+      failureFlash: true,
+
+}));
 
 app.post("/vsignup", function(req, res) {
     
@@ -179,9 +184,3 @@ app.post("/vsignup", function(req, res) {
 
     });
 });
-    
-app.post("/osignup", passport.authenticate('local-signup', {  
-  successRedirect: '/oview',
-  failureRedirect: '/osignup',
-  failureFlash: true
-}));
