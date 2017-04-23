@@ -5,11 +5,7 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
-console.log('requiring passport');
 var passport = require('passport');
-//console.log('requiring local strategy');
-//var LocalStrategyOrganizations = require('./modules_edit/passport-local').oStrategy;  
-//var LocalStrategyVolunteers = require('./modules_edit/passport-local').vStrategy;  
 var flash = require('connect-flash');
 
 var logger = require('morgan');
@@ -21,7 +17,6 @@ var MONGODB_URI = require('./config/database.js');
 
 user = "o"; /*global-user*/
 
-
 /*// Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
@@ -29,7 +24,7 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 */
-//console.log('requiring passport.js');
+
 //require('./config/passport')(passport); //pass passport for configuration
 
 // set up express
@@ -120,8 +115,23 @@ app.get('/osignup', function(req, res) {
 app.get('/login', function(req, res) {
 
 	// ejs render automatically looks in the views folder
-	require('./config/passport')(passport); 
+	//require('./config/passport')(passport); 
 	res.render('login');
+});
+
+// set the org view page route
+app.get('/ologin', function(req, res) {
+    
+    user = "o";
+    require('./config/passport')(passport); 
+ 	res.render('ologin');
+});
+
+// set the org view page route
+app.get('/vlogin', function(req, res) {
+     user = "v";
+    require('./config/passport')(passport); 
+ 	res.render('vlogin');
 });
 
 // set the org view page route
@@ -155,14 +165,53 @@ app.post("/osignup", passport.authenticate('local-signup', {
   failureFlash: true
 }));
 
-app.post('/login', passport.authenticate('local-login', {
+app.post('/ologin', passport.authenticate('local-login', {
 
       successRedirect: '/oview',
       failureRedirect: '/login',
       failureFlash: true,
 
-}));
+})); 
 
+app.post('/vlogin', passport.authenticate('local-login', {
+
+      successRedirect: '/vview',
+      failureRedirect: '/login',
+      failureFlash: true,
+
+})); 
+
+
+/*app.post('/login', passport.authenticate('local-login', {
+
+      successRedirect: '/oview',
+      failureRedirect: '/login',
+      failureFlash: true,
+
+})); 
+
+app.post('/login', function (req) {
+
+    if (req.body.logintype == 0) {
+        user = "v";
+    }
+    
+    else {
+        user = "o";
+    }
+    
+//            require('./config/passport')(passport); 
+    
+}, passport.authenticate('local-login', {
+
+      successRedirect: '/oview',
+      failureRedirect: '/login',
+      failureFlash: true,
+
+})
+
+); 
+*/
 app.post("/vsignup", passport.authenticate('local-signup', {  
   successRedirect: '/vview',
   failureRedirect: '/vsignup',

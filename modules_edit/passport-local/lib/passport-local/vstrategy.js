@@ -39,12 +39,6 @@ var passport = require('passport')
  * @param {Function} verify
  * @api public
  */
- 
- console.log('the user in vstrategy.js rn is', user)
-
- 
-        console.log('In vstrategy now');
-
 
 function vStrategy(options, verify) {
   if (typeof options == 'function') {
@@ -67,10 +61,7 @@ function vStrategy(options, verify) {
   this._isLogin = options.isLogin;
 }
 
-
- 
 util.inherits(vStrategy, passport.Strategy);
-
 
 vStrategy.prototype.authenticate = function(req, options) {
   options = options || {};

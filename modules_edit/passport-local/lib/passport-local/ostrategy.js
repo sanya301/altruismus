@@ -40,14 +40,9 @@ var passport = require('passport')
  * @api public
  */
  
- console.log('the user in ostrategy.js rn is', user)
-
 function oStrategy(options, verify) {
-      console.log('In ostrategy now');
 
   if (typeof options == 'function') {
-          console.log('verifying options in ostrategy now');
-
     verify = options;
     options = {};
   }
@@ -59,12 +54,8 @@ function oStrategy(options, verify) {
   this._addressField = options.addressField || 'address'; 
   this._phoneField = options.phoneField || 'phone'; 
   this._nameField = options.nameField || 'name'; 
-  
-  
 
   passport.Strategy.call(this);
-        console.log('calling passport.srategy now');
-
   this.name = 'local';
   this._verify = verify;
   this._passReqToCallback = options.passReqToCallback;
@@ -74,9 +65,6 @@ function oStrategy(options, verify) {
 /**
  * Inherit from `passport.Strategy`.
  */
- 
-       console.log('Inheriting from passport.srategy  into ostrategy now');
-
 util.inherits(oStrategy, passport.Strategy);
 
 /**
