@@ -5,8 +5,11 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
+console.log('requiring passport');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;  
+//console.log('requiring local strategy');
+//var LocalStrategyOrganizations = require('./modules_edit/passport-local').oStrategy;  
+//var LocalStrategyVolunteers = require('./modules_edit/passport-local').vStrategy;  
 var flash = require('connect-flash');
 
 var logger = require('morgan');
@@ -16,6 +19,8 @@ var session = require('express-session');
 
 var MONGODB_URI = require('./config/database.js');
 
+user = "o"; /*global-user*/
+
 
 /*// Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -24,8 +29,8 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 */
-
-require('./config/passport')(passport); //pass passport for configuration
+//console.log('requiring passport.js');
+//require('./config/passport')(passport); //pass passport for configuration
 
 // set up express
 app.use(logger('dev')); // log every request to the console
@@ -91,12 +96,22 @@ app.get('/signup', function(req, res) {
 
 //set the vsignup page route
 app.get('/vsignup', function(req, res) {
+    user = "v";
 
+ console.log('get vsignup', user);
+    require('./config/passport')(passport); 
+    console.log('after user = v in vsignup', user);
  	res.render('vsignup');
  });
 
 // set the organization signup page route
 app.get('/osignup', function(req, res) {
+        console.log(user);
+
+     user = "o";
+         console.log(user);
+         
+    require('./config/passport')(passport); 
 
  	res.render('osignup');
  });
@@ -105,6 +120,7 @@ app.get('/osignup', function(req, res) {
 app.get('/login', function(req, res) {
 
 	// ejs render automatically looks in the views folder
+	require('./config/passport')(passport); 
 	res.render('login');
 });
 
@@ -113,6 +129,13 @@ app.get('/oview', function(req, res) {
 
  	res.render('oview');
 });
+
+// set the volunteer view page route
+app.get('/vview', function(req, res) {
+
+ 	res.render('vview');
+});
+
 
 // set the userview page route
 app.get('/addevent', function(req, res) {
@@ -126,13 +149,13 @@ app.get('/about', function(req, res) {
     res.render('about'); // load the about file
 });
 
-app.post("/osignup", passport.authenticate('local-signup', {  
+app.post("/osignup", passport.authenticate('local-signup', { 
   successRedirect: '/oview',
   failureRedirect: '/osignup',
   failureFlash: true
 }));
 
-app.post('/login', passport.authenticate('local-login', { 
+app.post('/login', passport.authenticate('local-login', {
 
       successRedirect: '/oview',
       failureRedirect: '/login',
@@ -140,7 +163,13 @@ app.post('/login', passport.authenticate('local-login', {
 
 }));
 
-app.post("/vsignup", function(req, res) {
+app.post("/vsignup", passport.authenticate('local-signup', {  
+  successRedirect: '/vview',
+  failureRedirect: '/vsignup',
+  failureFlash: true
+}));
+
+/*app.post("/vsignup", function(req, res) {
     
     
     var mongoOp     =   require("./model/vusers");
@@ -184,3 +213,4 @@ app.post("/vsignup", function(req, res) {
 
     });
 });
+*/
