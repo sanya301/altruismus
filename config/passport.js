@@ -11,15 +11,15 @@ var VolLocalStrategy = require('../modules_edit/passport-local').vStrategy;
 
 module.exports = function(passport) { 
   
-  if (user == "o") {
+  if (usertype == "o") {
 
     passport.serializeUser(function(ouser, done) {
       done(null, ouser.id);
-      console.log('starting organization customer session');
+      console.log('starting organization customer', ouser.id, 'session');
     });
     passport.deserializeUser(function(id, done) {
       ousers.findById(id, function(err, ouser) {
-        done(err, ouser);
+      done(err, ouser);
      });
     });
 
@@ -86,7 +86,7 @@ module.exports = function(passport) {
     passport.serializeUser(function(vuser, done) {
 
       done(null, vuser.id);
-      console.log('starting volunteer customer session');
+      console.log('starting volunteer customer', vuser.id, 'session');
     });
     passport.deserializeUser(function(id, done) {
       vusers.findById(id, function(err, vuser) {

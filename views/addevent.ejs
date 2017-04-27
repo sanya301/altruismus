@@ -23,7 +23,6 @@
 						<ul>
 							<li><a href="index">Home</a></li>
 							<li><a href="contact">Contact</a></li>
-							<li><a href="login" class="button">Login</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -34,22 +33,31 @@
 						<h2>Create An Event</h2>
 					</header>
 					<div class="box">
-						<form method="post" action="#">
+						<form method="post" action="/addevent">
 							<div class="row uniform 50%">
 								<div class="12u">
-									<input type="text" name="event name" id="eName" value="" placeholder="Event Name" />
+									<input type="text" name="eventname" id="eventname" value="" placeholder="Event Name" />
 								</div>
 							</div>
 							
 						    <div class="row uniform 50%">
 								<div class="12u">
-									Date of Event : <input type="date" name="dob" id="dob" value="" placeholder="Date Of Birth" />
+									Date of Event : <input type="date" name="date" id="date" value="" placeholder="Date Of Birth" />
 								</div>
 							</div>
 							
-							<div class="row uniform 50%">
+							 <div class="row uniform 50%">
 								<div class="12u">
-									Time of Event : <input type="time" name="time" id="time" value="" placeholder="Event Time" />
+									Time of Event : 	
+								</div>
+							</div>
+									
+							<div class="row uniform 50%">
+								<div class="6u 12u(mobilep)">
+								 From:  <input type="time" name="timefrom" id="timefrom" value="" placeholder="From" />
+								</div>
+								<div class="6u 12u(mobilep)">
+									To:    <input type="time" name="timeto" id="timeto" value="" placeholder="To" />
 								</div>
 							</div>
 		
@@ -64,23 +72,11 @@
 									<textarea name="message" id="message" placeholder="Details about your event" rows="6"></textarea>
 								</div>
 							</div>
-										
-							<div class="row uniform 50%">
-								<div class="12u">
-									<input type="email" name="email" id="contactemail" value="" placeholder="Contact Email" />
-								</div>
-							</div>
-							
-							<div class="row uniform 50%">
-								<div class="12u">
-									<input type="tel" name="tel" id="tel" value="" placeholder="Contact Number" />
-								</div>
-							</div>
 							
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><a href="oview" class = "button special">Create Event</a></li>
+										<li><input type="submit" value="Create Event" /></li>
 									</ul>
 								</div>
 							</div>

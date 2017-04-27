@@ -15,7 +15,10 @@ var session = require('express-session');
 
 var MONGODB_URI = require('./config/database.js');
 
-user = "o"; /*global-user*/
+var eventdata = require('./model/events');
+
+
+usertype = "o"; /*global-user*/
 
 /*// Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -24,8 +27,6 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 */
-
-//require('./config/passport')(passport); //pass passport for configuration
 
 // set up express
 app.use(logger('dev')); // log every request to the console
@@ -65,49 +66,48 @@ app.use(express.static(__dirname + '/static'));
   });
 });
 
-// set the home page route
-app.get('/', function(req, res) {
-  
-  // ejs render automatically looks in the views folder
-	res.render('index');
- });
-
-// set the contact page route
-app.get('/contact', function(req, res) {
-
-    res.render('contact');
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
+// Routes ===================================================================================================================-
+
+
+// set the home page route
+app.get('/', function(req, res) {
+  	res.render('index');
+ });
+ 
 // set the index page route
 app.get('/index', function(req, res) {
 	res.render('index');
 }); 
 
+// set the contact page route
+app.get('/contact', function(req, res) {
+    res.render('contact');
+});
+
 // set the generic signup page route
 app.get('/signup', function(req, res) {
-
  	res.render('signup');
- });
+});
 
 //set the vsignup page route
 app.get('/vsignup', function(req, res) {
-    user = "v";
-
- console.log('get vsignup', user);
+    usertype = "v";
     require('./config/passport')(passport); 
-    console.log('after user = v in vsignup', user);
  	res.render('vsignup');
  });
 
 // set the organization signup page route
 app.get('/osignup', function(req, res) {
-        console.log(user);
-
-     user = "o";
-         console.log(user);
-         
+    usertype = "o";
     require('./config/passport')(passport); 
-
  	res.render('osignup');
  });
 
@@ -122,36 +122,87 @@ app.get('/login', function(req, res) {
 // set the org view page route
 app.get('/ologin', function(req, res) {
     
-    user = "o";
+    usertype = "o";
     require('./config/passport')(passport); 
  	res.render('ologin');
 });
 
 // set the org view page route
 app.get('/vlogin', function(req, res) {
-     user = "v";
+     usertype = "v";
     require('./config/passport')(passport); 
  	res.render('vlogin');
 });
 
 // set the org view page route
 app.get('/oview', function(req, res) {
-
  	res.render('oview');
 });
 
 // set the volunteer view page route
 app.get('/vview', function(req, res) {
-
  	res.render('vview');
 });
 
 
-// set the userview page route
-app.get('/addevent', function(req, res) {
+// Simple route middleware to ensure user is authenticated.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  req.session.error = 'Please sign in!';
+  res.redirect('/login');
+}
 
-	// ejs render automatically looks in the views folder
+// set the add event page route
+app.get('/addevent', function(req, res) {
+//    require('./config/passport')(passport); 
 	res.render('addevent');
+});
+
+app.post('/addevent', ensureAuthenticated, function(req, res, next) {
+    
+    var mongoOp     =   require("./model/events");
+
+    var db = new mongoOp();
+  
+    var response = {};
+    // fetch email and password from REST request.
+    // Add strict validation when you use this in Production.
+    db.eventname = req.body.eventname;
+    db.date = req.body.date;
+    db.timefrom = req.body.timefrom;
+    db.timeto = req.body.timeto;
+    db.location = req.body.location;
+    db.message = req.body.message;
+    db.org_id = req.user.id;
+
+ 
+    db.save(function(err){
+        
+      if(err) {
+            response = {"error" : true,"message" : "Error adding data"};
+      } 
+      
+      else if (db.name == 0 || db.location == 0 || db.date == 0 || db.timefrom == 0 || db.timeto == 0 || db.message == 0) {
+            response = {"error" : true,"message" : "Not all fields filled"};
+      }
+      
+      else {
+            response = {"error" : false,"message" : "Data added"};
+      }
+      
+      res.json(response);
+      
+      res.redirect('/oview');
+
+    }); 
+ //   return next ();
+    
+}); 
+
+// set the find new event page route
+app.get('/find-new-event', function(req, res) {
+
+	res.render('events');
 });
 
 // ABOUT PAGE 
@@ -165,101 +216,99 @@ app.post("/osignup", passport.authenticate('local-signup', {
   failureFlash: true
 }));
 
-app.post('/ologin', passport.authenticate('local-login', {
-
-      successRedirect: '/oview',
-      failureRedirect: '/login',
-      failureFlash: true,
-
-})); 
-
-app.post('/vlogin', passport.authenticate('local-login', {
-
-      successRedirect: '/vview',
-      failureRedirect: '/login',
-      failureFlash: true,
-
-})); 
-
-
-/*app.post('/login', passport.authenticate('local-login', {
-
-      successRedirect: '/oview',
-      failureRedirect: '/login',
-      failureFlash: true,
-
-})); 
-
-app.post('/login', function (req) {
-
-    if (req.body.logintype == 0) {
-        user = "v";
-    }
-    
-    else {
-        user = "o";
-    }
-    
-//            require('./config/passport')(passport); 
-    
-}, passport.authenticate('local-login', {
-
-      successRedirect: '/oview',
-      failureRedirect: '/login',
-      failureFlash: true,
-
-})
-
-); 
-*/
 app.post("/vsignup", passport.authenticate('local-signup', {  
   successRedirect: '/vview',
   failureRedirect: '/vsignup',
   failureFlash: true
 }));
 
-/*app.post("/vsignup", function(req, res) {
-    
-    
-    var mongoOp     =   require("./model/vusers");
+app.post('/ologin', passport.authenticate('local-login', {
+  successRedirect: '/oview',
+  failureRedirect: '/login',
+  failureFlash: true,
+})); 
 
+app.post('/vlogin', passport.authenticate('local-login', {
+    successRedirect: '/vview',
+    failureRedirect: '/login',
+    failureFlash: true,
+}));
+
+app.get('/logout', function(req, res){
+    console.log("LOGGIN OUT " + req.user.id)
+    req.logout();
+  res.redirect('/');
+});
+
+app.post('/email-list', function(req, res){
+    
+    var mongoOp     =   require("./model/email");
     var db = new mongoOp();
-  
     var response = {};
     // fetch email and password from REST request.
     // Add strict validation when you use this in Production.
-    db.email = req.body.email; 
-    db.firstname = req.body.firstname;
-    db.lastname = req.body.lastname;
-    db.dob = req.body.dob;
-    // Hash the password using SHA1 algorithm.
-    db.password =  require('crypto')
-                          .createHash('sha1')
-                          .update(req.body.password)
-                          .digest('base64');
-    db.confirmpassword =  require('crypto')
-                          .createHash('sha1')
-                          .update(req.body.confirmpassword)
-                          .digest('base64');
+
+    db.email = req.body.email;
+
     db.save(function(err){
-    // save() will run insert() command of MongoDB.
-    // it will add new data in collection.
+        
       if(err) {
             response = {"error" : true,"message" : "Error adding data"};
       } 
       
-      else if (db.password !== db.confirmpassword ) {
-            response = {"error" : true,"message" : "Passwords don't match"};
+      else if (db.email == 0) {
+            response = {"error" : true,"message" : "Nothing entered"};
       }
-      
       
       else {
             response = {"error" : false,"message" : "Data added"};
       }
+      
       res.json(response);
       
-      res.redirect('/');
-
+      res.redirect('/thank-you');
     });
 });
+
+app.get('/thank-you', function(req, res) {
+    res.render('thanks');
+});
+
+app.get('/eventlist', ensureAuthenticated, function(req, res, next) {
+    var db = req.db;
+    var collection = db.get('events');
+    collection.find({},{},function(e,docs){
+        res.json(docs);
+    });
+});
+
+
+/*
+var orgdata = require('./model/ousers'); 
+
+
+
+function loadUserEvents(req, res, next) {
+  var org = req.user.id;
+  eventdata.find({org}).or([
+    {eventname:res.locals.eventname}])
+    .exec (function(err, events) {
+    if (!err) {
+      res.locals.events = events;
+    }
+    next();
+  });
+}
+
+
+
+exports.oview = function(req, res, next) {
+   var org = req.user.id;
+   eventdata.orgeventlist(org, function(err, orgeventlist) {
+     res.render('oview', {
+       events: orgeventlist
+     });
+   });
+ };
+
 */
